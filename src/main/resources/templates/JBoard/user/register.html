@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <style>
+        .field_error{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h3>Board System v1.0</h3>
+        </header>
+        <section id="user" class="register">
+            <form th:action="@{/user/register}" th:object="${dto}" method="post" onsubmit="submitHandler()">
+                <table border="1">
+                    <caption>사이트 이용정보 입력</caption>
+                    <tr>
+                        <td>아이디</td>
+                        <td>
+                            <input type="text" name="id" placeholder="아이디 입력"
+                            th:field="*{id}"/>
+                            <div th:errors="*{id}" th:errorclass="field_error">아이디 에러</div>
+                            <button>중복확인</button>
+                            <span class="resultId"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>비밀번호</td>
+                        <td>
+                            <input type="password" name="password" placeholder="비밀번호 입력"
+                                   th:field="*{password}"/>
+                            <div th:errors="*{password}" th:errorclass="field_error"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>비밀번호 확인</td>
+                        <td>
+                            <input type="password" name="passCheck" placeholder="비밀번호 확인 입력"
+                                   />
+                            <span class="resultPass"></span>
+                        </td>
+                    </tr>
+                </table>
+                <table border="1">
+                    <caption>개인정보 입력</caption>
+                    <tr>
+                        <td>이름</td>
+                        <td>
+                            <input type="text" name="name" placeholder="이름 입력"
+                                   th:field="*{name}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>별명</td>
+                        <td>
+                            <p>공백없이 한글, 영문, 숫자만 입력가능</p>
+                            <input type="text" name="nickName" placeholder="별명 입력"
+                                   th:field="*{nickName}"/>
+                            <span class="resultNick"></span>                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>E-Mail</td>
+                        <td>
+                            <input type="email" name="email" placeholder="이메일 입력"
+                                   th:field="*{email}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>휴대폰</td>
+                        <td>
+                            <input type="text" name="hp" placeholder="- 포함 13자리 입력" minlength="13" maxlength="13"
+                                   th:field="*{hp}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>주소</td>
+                        <td>
+                            <div>
+                                <input id="zipcode" type="text" name="zip" placeholder="우편번호" th:field="*{zip}"/>
+                                <input id="zipcodeBtn" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                            </div>                            
+                            <div>
+                                <input id="addr1" type="text" name="addr1" placeholder="주소를 검색하세요." th:field="*{addr1}"/>
+                            </div>
+                            <div>
+                                <input id="addr2" type="text" name="addr2" placeholder="상세주소를 입력하세요." th:field="*{addr2}"/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div>
+                    <a href="./login.html" class="btnCancel">취소</a>
+                    <input type="submit"   class="btnJoin" value="회원가입"/>
+                </div>
+
+            </form>
+        </section>
+
+        <footer>
+            ⓒCopyleft by chhak.or.kr
+        </footer>
+    </div>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/js/zipcodeAPI.js}"></script>
+    <script>
+        let isIdDuplicated = false;
+        const idInput = document.querySelector("input[name='password']");
+        idInput.addEventListener('input',()=>{
+            isValidId = false;
+        });
+
+        const isValid = {
+            "uid":false,
+            "password":false,
+            "name":false,
+            "email":false,
+            "nickName":false
+        }
+        const submitHandler = ()=>{
+            return true;
+        }
+    </script>
+</body>
+</html>
