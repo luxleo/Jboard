@@ -32,10 +32,10 @@ public class Users {
     @Column(name = "reg_ip", length = 100)
     private String regIp;
     private LocalDateTime regDate;
-    private LocalDateTime leaveDate;
+    private String leaveDate;
 
     @Builder
-    public Users(String id, String email, String password, String name, String nickName, String hp, UserRole role, String zip, String addr1, String addr2, String regIp, LocalDateTime regDate, LocalDateTime leaveDate) {
+    public Users(String id, String email, String password, String name, String nickName, String hp, UserRole role, String zip, String addr1, String addr2, String regIp, LocalDateTime regDate, String leaveDate) {
         this.id = id;
         this.email = email;
         this.password = password;

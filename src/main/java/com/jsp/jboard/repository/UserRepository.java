@@ -1,4 +1,4 @@
-package com.jsp.jboard.response;
+package com.jsp.jboard.repository;
 
 import com.jsp.jboard.domain.Users;
 

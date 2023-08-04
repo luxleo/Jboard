@@ -1,7 +1,7 @@
 package com.jsp.jboard.service;
 
 import com.jsp.jboard.domain.Users;
-import com.jsp.jboard.response.UserRepository;
+import com.jsp.jboard.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

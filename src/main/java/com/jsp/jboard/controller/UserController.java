@@ -2,6 +2,7 @@ package com.jsp.jboard.controller;
 
 import com.jsp.jboard.domain.Users;
 import com.jsp.jboard.request.UserCreate;
+import com.jsp.jboard.request.UserLogin;
 import com.jsp.jboard.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,7 @@ public class UserController {
     public String createUser(@Validated @ModelAttribute("dto") UserCreate dto, BindingResult bs,
                              RedirectAttributes redirectAttributes) {
         if (bs.hasErrors()) {
+            log.info("attr set to binding res!");
             return "user/register";
         }
         log.info("value of dto = {}", dto);
@@ -42,9 +44,26 @@ public class UserController {
     }
 
     @GetMapping("/users/{userId}")
-    public String getUser(@PathVariable String userId,Model model) {
+    public String getUser(@PathVariable String userId, Model model) {
+        log.info("[CONTROLLER]getUser method called");
         Users findUser = userService.findById(userId);
+        log.info("[FINDUSER] user name : {}", findUser.getName());
         model.addAttribute("user", findUser);
         return "user/userDetail";
+    }
+
+    @GetMapping("/login")
+    public String loginForm(Model model) {
+        model.addAttribute("dto", new UserLogin());
+        return "user/login";
+    }
+
+    @PostMapping("/login")
+    public String login(@Validated @ModelAttribute("dto") UserLogin dto, BindingResult bs,
+                        RedirectAttributes redirectAttributes) {
+        if (bs.hasErrors()) {
+            log.info("[LOGINERR] 오이오이, 그런 유저는 없다구");
+            return "user/login";
+        }
     }
 }

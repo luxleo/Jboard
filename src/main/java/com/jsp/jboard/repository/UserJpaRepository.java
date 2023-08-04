@@ -1,4 +1,4 @@
-package com.jsp.jboard.response;
+package com.jsp.jboard.repository;
 
 import com.jsp.jboard.domain.Users;
 import jakarta.persistence.EntityManager;
@@ -18,7 +18,6 @@ public class UserJpaRepository implements UserRepository{
         em.persist(user);
         return user.getId();
     }
-
     @Override
     public void delete(String id) {
         log.info("user delete");
@@ -26,6 +25,7 @@ public class UserJpaRepository implements UserRepository{
 
     @Override
     public Users findById(String id) {
-        return null;
+        Users users = em.find(Users.class, id);
+        return users;
     }
 }

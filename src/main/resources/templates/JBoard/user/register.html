@@ -53,6 +53,7 @@
                         <td>
                             <input type="text" name="name" placeholder="이름 입력"
                                    th:field="*{name}"/>
+                            <div th:errors="*{name}" th:errorclass="field_error"></div>
                         </td>
                     </tr>
                     <tr>
@@ -99,7 +100,6 @@
                     <a href="./login.html" class="btnCancel">취소</a>
                     <input type="submit"   class="btnJoin" value="회원가입"/>
                 </div>
-
             </form>
         </section>
 
@@ -115,7 +115,6 @@
         idInput.addEventListener('input',()=>{
             isValidId = false;
         });
-
         const isValid = {
             "uid":false,
             "password":false,

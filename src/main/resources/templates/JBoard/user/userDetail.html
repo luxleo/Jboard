@@ -5,8 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-  <table th:object="*{user}">
-    <tr th:field="*{name}"></tr>
+  <table th:object="${user}" border="1">
+    <tr>
+        <td>이름</td>
+        <td th:text="*{name}"></td>
+    </tr>
   </table>
 </body>
 </html>
