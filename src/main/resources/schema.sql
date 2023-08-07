@@ -1,5 +1,6 @@
-DROP TABLE if exists `User`;
-DROP TABLE if exists `Article`;
+DROP TABLE if EXISTS `Article`;
+DROP TABLE if EXISTS `User`;
+
 DROP TABLE if EXISTS `File`;
 DROP TABLE if EXISTS `Terms`;
 
@@ -20,12 +21,8 @@ CREATE TABLE `User`(
 );
 CREATE TABLE `Article` (
                            `no`			INT AUTO_INCREMENT PRIMARY KEY,
-                           `parent`		INT DEFAULT 0,
-                           `comment`	INT DEFAULT 0,
-                           `category`	VARCHAR(20) DEFAULT 'free',
                            `title`		VARCHAR(255),
                            `content`	TEXT NOT null,
-                           `flie`		TINYINT DEFAULT 0,
                            `hit`			INT DEFAULT 0,
                            `writer`		VARCHAR(20) NOT null,
                            `regip`		VARCHAR(100) NOT null,

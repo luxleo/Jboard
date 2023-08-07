@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="html-head">
+    <meta charset="UTF-8">
+    <title>게시판</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <style>
+      .field_error{
+        color: red;
+      }
+    </style>
+</head>
+<body>
+    <header th:fragment="login-header">
+        <span th:text="|${session.loginMember.name} 격하게 환영하오|"></span>
+        <form th:action="@{/user/logout}" method="post" onsubmit="return submitHandler()">
+            <button>로그아웃</button>
+        </form>
+
+    </header>
+    <script>
+        const submitHandler=  (e)=>{
+            e.preventDefault();
+            let logout = confirm("진짜로 로그아웃 하실겁니꺼?");
+            return logout;
+        }
+    </script>
+</body>
+</html>

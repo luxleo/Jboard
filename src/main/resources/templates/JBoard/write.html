@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,8 @@
             <section class="write" id="board">
                 <h3>글쓰기</h3>
                 <article>
-                    <form action="#">
+                    <form th:object="${dto}" th:action="@{/posts}">
+                        <input type="hidden" th:value="${user.id}" name="writer" readonly/>
                         <table>
                             <tr>
                                 <td>제목</td>

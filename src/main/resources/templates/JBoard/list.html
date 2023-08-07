@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
+<head th:replace="fragments/common::html-head">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JBoard:terms</title>
@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="container">
-        <header>
+        <header th:replace="~{fragments/common::login-header}">
             <h3>Board System v1.0</h3>
         </header>
         <section id="board" class="list">

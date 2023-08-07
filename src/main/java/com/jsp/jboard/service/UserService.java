@@ -20,4 +20,12 @@ public class UserService {
     public Users findById(String id) {
         return userRepository.findById(id);
     }
+
+    public Users doLogin(String id, String password) {
+        Users findUser = userRepository.findById(id);
+        if (!findUser.getPassword().equals(password)) {
+            return null;
+        }
+        return findUser;
+    }
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/common::html-head}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JBoard:login</title>
@@ -16,11 +16,11 @@
                 <form th:action="@{/user/login}" th:object="${dto}" method="post">
                     <table border="1">
                         <tr>
-                            <td><img th:src="@{/images/login_ico_id.png}" alt="아이디"></td>
+                            <td><img th:src="@{/img/login_ico_id.png}" alt="아이디"></td>
                             <td><input type="text" name="uid" th:field="*{id}"></td>
                         </tr>
                         <tr>
-                            <td><img th:src="@{/images/login_ico_pw.png}" alt="아이디"></td>
+                            <td><img th:src="@{/img/login_ico_pw.png}" alt="비밀번호"></td>
                             <td><input type="password" name="password" th:field="*{password}"></td>
                         </tr>
                     </table>
@@ -29,7 +29,7 @@
                 <div>
                     <h3>회원 로그인 안내</h3>
                     <p>회원이 아니시면 회원으로 가입하세용.</p>
-                    <a href="#">회원가입</a>
+                    <a th:href="@{/user/register}">회원가입</a>
                 </div>
             </section>
         </main>

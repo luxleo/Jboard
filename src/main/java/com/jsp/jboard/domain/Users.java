@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter //Todo: entity class 에도 setter를 쓰는지?
 @Entity
-@Table(name = "user")
+@Table(name = "User")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Users {
     @Id

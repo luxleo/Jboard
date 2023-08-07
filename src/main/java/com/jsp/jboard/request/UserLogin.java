@@ -1,7 +1,9 @@
 package com.jsp.jboard.request;
 
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
 
+@Data
 public class UserLogin {
     @NotEmpty(message = "아이디 입력은 필수")
     private String id;

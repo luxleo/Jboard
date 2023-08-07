@@ -4,6 +4,9 @@ import com.jsp.jboard.domain.Users;
 import com.jsp.jboard.request.UserCreate;
 import com.jsp.jboard.request.UserLogin;
 import com.jsp.jboard.service.UserService;
+import com.jsp.jboard.session.SessionConst;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -60,10 +63,26 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@Validated @ModelAttribute("dto") UserLogin dto, BindingResult bs,
-                        RedirectAttributes redirectAttributes) {
+                        RedirectAttributes redirectAttributes, HttpServletRequest request) {
         if (bs.hasErrors()) {
-            log.info("[LOGINERR] 오이오이, 그런 유저는 없다구");
             return "user/login";
         }
+        Users findUser = userService.doLogin(dto.getId(), dto.getPassword());
+        if (findUser == null) {
+            log.error("어허 로그인에 실패했당께");
+            bs.reject("loginFail", "로그인에 실패했음요");
+            return "user/login";
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_MEMBER, findUser);
+
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        session.invalidate();
+        return "redirect:/user/login";
     }
 }
