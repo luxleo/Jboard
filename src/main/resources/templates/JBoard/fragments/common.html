@@ -8,13 +8,17 @@
       .field_error{
         color: red;
       }
+      .btnLogout{
+          background-color: #4b545e;
+          color: #600000;
+      }
     </style>
 </head>
 <body>
     <header th:fragment="login-header">
         <span th:text="|${session.loginMember.name} 격하게 환영하오|"></span>
         <form th:action="@{/user/logout}" method="post" onsubmit="return submitHandler()">
-            <button>로그아웃</button>
+            <button class="btnLogout">로그아웃</button>
         </form>
 
     </header>

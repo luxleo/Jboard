@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="fragments/common::html-head">
+<head th:replace="~{fragments/common::html-head}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JBoard:terms</title>
@@ -22,27 +22,27 @@
                         <th>날짜</th>
                         <th>조회</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td><a href="./view.html">테스트 제목입니다.</a>&nbsp;[3]</td>
-                        <td>길동이</td>
-                        <td>20-05-12</td>
-                        <td>12</td>
-                    </tr>
+                        <tr  th:each="post : ${posts}">
+                            <td th:text="${post.id}">1</td>
+                            <td><a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}">테스트 제목입니다.</a>&nbsp;[3]</td>
+                            <td th:text="${post.writerNick}">길동이</td>
+                            <td th:text="${post.createdAt}">20-05-12</td>
+                            <td th:text="${post.hit}">12</td>
+                        </tr>
                 </table>
             </article>
 
             <!-- 페이지 네비게이션 -->
             <div class="paging">
-                <a href="#" class="prev">이전</a>
-                <a href="#" class="num current">1</a>                
-                <a href="#" class="num">2</a>                
-                <a href="#" class="num">3</a>                
-                <a href="#" class="next">다음</a>
+                <a th:if="${paging.pageGroupStart > 1}" th:href="@{/posts(requestPage=1)}" class="prev">이전</a>
+                <th:block th:each=" i : ${#numbers.sequence(paging.pageGroupStart , paging.pageGroupEnd)}">
+                    <a th:href="@{/posts(requestPage=${i})}" th:text="${i}" th:class="${paging.currentPage == i}? current : ''"></a>
+                </th:block>
+                <a th:if="${paging.pageGroupEnd < paging.lastPageNum}" th:href="@{/posts(requestPage=${paging.pageGroupEnd+1})}" class="next">다음</a>
             </div>
 
             <!-- 글쓰기 버튼 -->
-            <a href="./write.html" class="btnWrite">글쓰기</a>
+            <a th:href="@{/posts/create-form}" class="btnWrite">글쓰기</a>
 
         </section>
         <footer>

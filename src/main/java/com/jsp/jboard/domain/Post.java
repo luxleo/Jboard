@@ -1,6 +1,5 @@
 package com.jsp.jboard.domain;
 
-import com.jsp.jboard.request.PostCreateDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,8 +20,8 @@ public class Post {
     private String title;
     private String content;
     private int hit;
-    @ManyToOne(cascade = {CascadeType.REMOVE})
-    @JoinColumn(name = "id")
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "writer")
     private Users writer;
     @Column(name = "regip")
     private String regIp;
@@ -30,11 +29,10 @@ public class Post {
     private LocalDateTime rDate;
 
     @Builder
-    public Post(PostCreateDto dto) {
-        this.id = id;
+    public Post(String title, String content, Users writer, String regIp, LocalDateTime rDate) {
         this.title = title;
         this.content = content;
-        this.hit = hit;
+        this.hit = 0;
         this.writer = writer;
         this.regIp = regIp;
         this.rDate = rDate;

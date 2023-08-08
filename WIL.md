@@ -21,3 +21,6 @@
         )
 # Todo
     1. 로그인 처리 어떻게 할 것인지... 
+# paging 처리
+    1. select * from post limit *,* (offset,pagesize);
+        의 offset을 쿼리파라미터로 받아서 처리한다.

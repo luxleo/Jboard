@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserCreate {
+public class UserCreateRequest {
     @NotBlank(message = "잉? 아이디가 비었는뎁, 다시!")
     private String id;
     @Email

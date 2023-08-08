@@ -1,8 +1,8 @@
 package com.jsp.jboard.controller;
 
 import com.jsp.jboard.domain.Users;
-import com.jsp.jboard.request.UserCreate;
-import com.jsp.jboard.request.UserLogin;
+import com.jsp.jboard.request.UserCreateRequest;
+import com.jsp.jboard.request.UserLoginRequest;
 import com.jsp.jboard.service.UserService;
 import com.jsp.jboard.session.SessionConst;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,12 +25,12 @@ public class UserController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("dto", new UserCreate());
+        model.addAttribute("dto", new UserCreateRequest());
         return "user/register";
     }
 
     @PostMapping("/register")
-    public String createUser(@Validated @ModelAttribute("dto") UserCreate dto, BindingResult bs,
+    public String createUser(@Validated @ModelAttribute("dto") UserCreateRequest dto, BindingResult bs,
                              RedirectAttributes redirectAttributes) {
         if (bs.hasErrors()) {
             log.info("attr set to binding res!");
@@ -57,12 +57,12 @@ public class UserController {
 
     @GetMapping("/login")
     public String loginForm(Model model) {
-        model.addAttribute("dto", new UserLogin());
+        model.addAttribute("dto", new UserLoginRequest());
         return "user/login";
     }
 
     @PostMapping("/login")
-    public String login(@Validated @ModelAttribute("dto") UserLogin dto, BindingResult bs,
+    public String login(@Validated @ModelAttribute("dto") UserLoginRequest dto, BindingResult bs,
                         RedirectAttributes redirectAttributes, HttpServletRequest request) {
         if (bs.hasErrors()) {
             return "user/login";

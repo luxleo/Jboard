@@ -2,11 +2,11 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update # jpa ddl ??
+      ddl-auto: create # jpa ddl ??
     properties:
       hibernate:
         format_sql: true # ?? ??
-    defer-datasource-initialization: true # script??? hibernate ??? ?? ???? ??.
+    # defer-datasource-initialization: true # script??? hibernate ??? ?? ???? ??.
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:jboard;NON_KEYWORDS=USER
@@ -22,4 +22,7 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/JBoard/
     cache: false # dev ???? ??? ?? ?? ??????? ??
-
+logging:
+  level:
+    org.hibernate.sql: trace
+    org.hibernate.bytecode: trace

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
+<head th:replace="~{fragments/common::html-head}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JBoard:write</title>
@@ -15,17 +15,17 @@
             <section class="write" id="board">
                 <h3>글쓰기</h3>
                 <article>
-                    <form th:object="${dto}" th:action="@{/posts}">
-                        <input type="hidden" th:value="${user.id}" name="writer" readonly/>
+                    <form th:object="${dto}" th:action="@{/posts}" method="post">
+                        <input type="hidden" th:field="*{writer}" readonly/>
                         <table>
                             <tr>
                                 <td>제목</td>
-                                <td><input type="text" name="title" placeholder="제목을 입력하세요."/></td>
+                                <td><input th:field="*{title}" type="text" name="title" placeholder="제목을 입력하세요."/></td>
                             </tr>
                             <tr>
                                 <td>내용</td>
                                 <td>
-                                    <textarea name="content"></textarea>                                
+                                    <textarea th:field="*{content}" name="content"></textarea>
                                 </td>
                             </tr>
                             <tr>
