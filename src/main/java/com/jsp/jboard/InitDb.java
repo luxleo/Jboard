@@ -1,5 +1,6 @@
 package com.jsp.jboard;
 
+import com.jsp.jboard.domain.Post;
 import com.jsp.jboard.domain.UserRole;
 import com.jsp.jboard.domain.Users;
 import jakarta.annotation.PostConstruct;
@@ -20,7 +21,7 @@ public class InitDb {
     @PostConstruct
     void init() {
         log.info("[INIT SERVICE] start");
-        initService.createUser();
+        initService.createUserAndPosts(200);
         log.info("[INIT SERVICE] finish");
     }
     @Component
@@ -29,7 +30,7 @@ public class InitDb {
     static class InitService {
         private final EntityManager em;
 
-        public void createUser() {
+        public void createUserAndPosts(int postNum) {
             Users user = Users.builder()
                     .id("legends")
                     .password("1234aA!")
@@ -42,14 +43,21 @@ public class InitDb {
                     .build();
             try {
                 em.persist(user);
-                String id = user.getId();
-                //em.flush();
-
-                Users findUser = em.find(Users.class, id);
-                log.info("[save WELL?] user name = {}", findUser.getName());
-                log.info("ok good");
+                createPost(postNum,user);
             }catch (Exception e){
                 log.error("[BAD BAD]");
+            }
+        }
+        public void createPost(int num,Users writer){
+            for (int i = 0; i < num; i++) {
+                Post post = Post.builder()
+                        .title(String.valueOf(i))
+                        .content(String.valueOf(i))
+                        .writer(writer)
+                        .rDate(LocalDateTime.now())
+                        .regIp(null)
+                        .build();
+                em.persist(post);
             }
         }
     }
