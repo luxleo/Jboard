@@ -24,3 +24,5 @@
 # paging 처리
     1. select * from post limit *,* (offset,pagesize);
         의 offset을 쿼리파라미터로 받아서 처리한다.
+# 관계 매핑
+    @OneToOne, @ManyToOne + @JoinColumn(name= "테이블의 필드 네임")

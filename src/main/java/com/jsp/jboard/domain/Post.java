@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -27,6 +29,10 @@ public class Post {
     private String regIp;
     @Column(name = "rdate")
     private LocalDateTime rDate;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "parent")
+    private List<Comment> comments = new ArrayList<>();
+
 
     @Builder
     public Post(String title, String content, Users writer, String regIp, LocalDateTime rDate) {

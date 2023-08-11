@@ -38,4 +38,14 @@ public class PostJpaRepository implements PostRepository {
         ).getSingleResult();
         return postNum;
     }
+    @Override
+    public Post findByIdWithWriter(Long pid) {
+        return em.createQuery(
+                        "select p from Post p " +
+                                "join fetch p.writer " +
+                                "where p.id = :postId", Post.class
+                ).setParameter("postId", pid)
+                .getSingleResult();
+
+    }
 }

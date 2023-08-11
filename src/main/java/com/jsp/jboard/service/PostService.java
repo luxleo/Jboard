@@ -5,11 +5,13 @@ import com.jsp.jboard.domain.Users;
 import com.jsp.jboard.repository.PostRepository;
 import com.jsp.jboard.repository.UserRepository;
 import com.jsp.jboard.request.PostCreateRequest;
+import com.jsp.jboard.request.PostUpdateRequest;
 import com.jsp.jboard.response.post.PostDetailResponse;
 import com.jsp.jboard.response.post.PostListResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,8 +45,10 @@ public class PostService {
     }
 
     public PostDetailResponse getPostDetailView(Long id) {
-        Post foundPost = postRepository.findById(id);
+        Post foundPost = postRepository.findByIdWithWriter(id);
         return PostDetailResponse.builder()
+                .id(id)
+                .writer(foundPost.getWriter().getId())
                 .title(foundPost.getTitle())
                 .content(foundPost.getContent())
                 .build();
@@ -52,4 +56,12 @@ public class PostService {
     public Long getPostNum() {
         return postRepository.count();
     }
+    @Transactional
+    public Long updatePost(PostUpdateRequest updateRequest) {
+        Post foundPost = postRepository.findById(updateRequest.getId());
+        foundPost.setTitle(updateRequest.getTitle());
+        foundPost.setContent(updateRequest.getContent());
+        return foundPost.getId();
+    }
+
 }

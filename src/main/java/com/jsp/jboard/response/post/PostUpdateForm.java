@@ -2,19 +2,15 @@ package com.jsp.jboard.response.post;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
-public class PostDetailResponse {
-
+@Getter
+public class PostUpdateForm {
     private Long id;
-    private String writer;
     private String title;
     private String content;
     @Builder
-    public PostDetailResponse(Long id,String writer,String title, String content) {
+    public PostUpdateForm(Long id, String title, String content) {
         this.id = id;
-        this.writer = writer;
         this.title = title;
         this.content = content;
     }

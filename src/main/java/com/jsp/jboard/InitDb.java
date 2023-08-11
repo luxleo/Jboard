@@ -21,7 +21,7 @@ public class InitDb {
     @PostConstruct
     void init() {
         log.info("[INIT SERVICE] start");
-        initService.createUserAndPosts(200);
+        initService.createUserAndPosts(5);
         log.info("[INIT SERVICE] finish");
     }
     @Component
@@ -33,7 +33,7 @@ public class InitDb {
         public void createUserAndPosts(int postNum) {
             Users user = Users.builder()
                     .id("legends")
-                    .password("1234aA!")
+                    .password("1234")
                     .name("빈지노")
                     .nickName("goozino")
                     .role(UserRole.USER)
@@ -41,9 +41,22 @@ public class InitDb {
                     .hp("010-1234-1234")
                     .email("ex1@gmail.com")
                     .build();
+            Users user2 = Users.builder()
+                    .id("dragon")
+                    .password("1234")
+                    .name("이센스")
+                    .nickName("E_SENSE")
+                    .role(UserRole.USER)
+                    .regDate(LocalDateTime.now())
+                    .hp("010-1234-5678")
+                    .email("ex2@gmail.com")
+                    .build();
             try {
                 em.persist(user);
+                em.persist(user2);
+
                 createPost(postNum,user);
+                createPost(postNum, user2);
             }catch (Exception e){
                 log.error("[BAD BAD]");
             }

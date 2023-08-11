@@ -9,6 +9,7 @@ public interface PostRepository {
     public List<Post> findAll();
 
     public Post findById(Long id);
+    public Post findByIdWithWriter(Long id);
 
     public Long count();
 }

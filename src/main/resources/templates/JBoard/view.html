@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
 <head th:replace="~{fragments/common::html-head}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,13 +35,26 @@
                 </table>
                 <div>
                     <a href="#" class="btnDelete">삭제</a>
-                    <a href="./modify.html" class="btnModify">수정</a>
+                    <a th:if="${post.writer} == ${session.loginMember.id}" th:href="@{/posts/{postId}/updateForm(postId=${post.id})}" class="btnModify">수정</a>
                     <a th:href="@{/posts}" class="btnList">목록</a>
                 </div>  
                 
                 <!-- 댓글리스트 -->
                 <section class="commentList">
                     <h3>댓글목록</h3>
+                    <th:block th:each="comment : ${comments}">
+                        <article class="comment">
+                        <span>
+                            <span th:text="${comment.writerName}">길동이</span>
+                            <span th:text="${comment.createdAt}">20-05-13</span>
+                        </span>
+                            <textarea th:text="${comment.content}" name="comment" readonly>댓글 샘플입니다.</textarea>
+                            <div>
+                                <a th:href="@{/comments/{commentId}/delete(commentId=${comment.id})}">삭제</a>
+                                <a href="#">수정</a>
+                            </div>
+                        </article>
+                    </th:block>
                     <article class="comment">
                         <span>
                             <span>길동이</span>
@@ -61,8 +74,10 @@
                 <!-- 댓글입력폼 -->
                 <section class="commentForm">
                     <h3>댓글쓰기</h3>
-                    <form action="#">
-                        <textarea name="comment"></textarea>
+                    <form th:action="@{/comments}" method="post" th:object="${commentDto}">
+                        <input type="hidden" th:field="*{writerName}">
+                        <input type="hidden" th:field="*{postId}">
+                        <textarea th:field="*{content}" name="comment"></textarea>
                         <div>
                             <a href="#" class="btnCancel">취소</a>
                             <input type="submit" class="btnWrite" value="작성완료"/>
